@@ -1,0 +1,15 @@
+{
+  "name": "alex-vallejo",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "format": "biome format --write .",
+    "build": "turbo build --cache-dir=.turbo"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "turbo": "2.5.3"
+  },
+  "workspaces": ["apps/*", "packages/*"],
+  "packageManager": "npm@8.5.0"
+}

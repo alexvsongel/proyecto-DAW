@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="512.000000pt"
+   height="512.000000pt"
+   viewBox="0 0 512.000000 512.000000"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg94"
+   sodipodi:docname="volverBlanco.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata100">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs98" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1856"
+     inkscape:window-height="1016"
+     id="namedview96"
+     showgrid="false"
+     inkscape:zoom="0.86225573"
+     inkscape:cx="245.45209"
+     inkscape:cy="417.82575"
+     inkscape:window-x="1984"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg94" />
+  <g
+     transform="matrix(0.10864907,0,0,-0.10558608,-39.693479,546.91296)"
+     id="g92"
+     style="fill:#000000;stroke:none;stroke-width:0.93364906">
+    <path
+       d="m 4324,4865.4884 c -53,-12 -134.2457,-45.7585 -161.1228,-161.7472 v 0 L 4158,3775 c -5,-285 -9,-356 -26,-436 -114,-541 -501,-973 -1017,-1134 -220,-69 -198,-68 -1063,-72 -430,-2 -782,-1 -782,4 0,4 113,121 251,258 160,159 258,265 270,290 24,51 24,119 0,170 -19,43 -78,100 -118,116 -37,14 -119,11 -161,-6 -47,-20 -923,-891 -955,-950 -27,-51 -28,-136 -3,-185 25,-49 901,-926 951,-952 129,-68 291,22 303,167 8,100 -2,114 -283,395 -140,140 -255,258 -255,262 0,4 370,9 823,11 879,4 844,2 1055,56 338,87 688,294 917,544 272,296 438,640 501,1035 21,132 32,1277.4884 15,1352.4884 -17,75 -75,139 -144,160 -55,16 -66,17 -113,5 z"
+       id="path90"
+       inkscape:connector-curvature="0"
+       style="stroke-width:0.93364906;fill:#ffffff"
+       sodipodi:nodetypes="cccccccsccccccsccssccccscc" />
+  </g>
+</svg>
