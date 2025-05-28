@@ -51,7 +51,7 @@ export function Buzon() {
     }
 
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/suggestions`,
+      `${import.meta.env.VITE_API_URL}/api/suggestions`,
       {
         method: "POST",
         body: JSON.stringify({

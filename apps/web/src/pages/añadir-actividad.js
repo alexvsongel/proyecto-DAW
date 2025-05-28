@@ -33,7 +33,7 @@ export function AñadirActividad() {
 
       await m.request({
         method: "POST",
-        url: `${import.meta.env.VITE_API_URL}/calendar`,
+        url: `${import.meta.env.VITE_API_URL}/api/calendar`,
         body: actividad,
       });
 

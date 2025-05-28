@@ -1,7 +1,7 @@
 import {Hono} from 'hono';
-import {auth} from '../lib/auth';
+import {auth} from '../lib/auth.js';
 
-import {database, schema} from '../lib/database';
+import {database, schema} from '../lib/database.js';
 
 const calendar = new Hono();
 

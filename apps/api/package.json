@@ -1,11 +1,9 @@
 {
   "name": "api",
-  "type": "module",
-  "version": "1.0.0",
+  "type": "module", 
   "scripts": {
-    "format": "prettier . -w",
-    "start": "tsx src/index.js",
-    "dev": "tsx watch src/index.js",
+    "deploy": "vercel",
+    "start": "vercel dev",
     "migrate": "drizzle-kit migrate",
     "generate": "drizzle-kit generate"
   },
@@ -22,6 +20,7 @@
     "@types/node": "20.11.17",
     "drizzle-kit": "0.31.0",
     "prettier": "3.5.3",
-    "tsx": "4.7.1"
+    "tsx": "4.7.1",
+    "vercel": "42.2.0"
   }
 }

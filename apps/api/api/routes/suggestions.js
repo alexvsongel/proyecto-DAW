@@ -1,6 +1,6 @@
 import { Hono } from "hono";
-import { auth } from "../lib/auth";
-import { database, eq, schema } from "../lib/database";
+import { auth } from "../lib/auth.js";
+import { database, eq, schema } from "../lib/database.js";
 
 const suggestions = new Hono();
 

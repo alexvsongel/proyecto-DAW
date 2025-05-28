@@ -9,7 +9,7 @@ import {Layout} from '../components/layout';
 import {getSession} from '../lib/auth';
 
 async function getSugerencias() {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/suggestions`, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/suggestions`, {
     credentials: 'include'
   });
 

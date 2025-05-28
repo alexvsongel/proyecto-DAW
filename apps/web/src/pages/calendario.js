@@ -11,7 +11,7 @@ import { getSession } from "../lib/auth";
 
 async function getActividades() {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/calendar`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/calendar`, {
       credentials: "include",
     });
 
