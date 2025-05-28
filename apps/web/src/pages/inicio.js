@@ -4,7 +4,6 @@ import {
   backgroundColorButton,
   fontSizeh1,
   fontSizeh2,
-  fontSizeh3,
 } from "../lib/constants";
 import { animateSpring } from "../lib/animations";
 import { Layout } from "../components/layout";
@@ -16,49 +15,41 @@ const datosBtn = [
     icono: "imagenes/calendario.svg",
     texto: "Calendario",
     iconoModoOscuro: "imagenes/calendarioBlanco.svg",
-    alt: "",
-    titulo: "",
     slug: "/Calendario",
   },
   {
     icono: "imagenes/galeria.svg",
     texto: "Galería",
     iconoModoOscuro: "imagenes/galeriaBlanco.svg",
-    alt: "",
-    titulo: "",
     slug: "/Galeria",
   },
   {
     icono: "imagenes/buzon.svg",
     texto: "Buzón de sugerencias",
     iconoModoOscuro: "imagenes/buzonBlanco.svg",
-    alt: "",
-    titulo: "",
     slug: "/Buzon",
   },
   {
     icono: "imagenes/documentos.svg",
     texto: "Documentos",
     iconoModoOscuro: "imagenes/documentosBlanco.svg",
-    alt: "",
-    titulo: "",
     slug: "/Documentos",
   },
 ];
 
 export const Inicio = {
-  // role: "",
+  role: "",
   session: null,
   name: "Usuario",
-  // oninit: async () => {
-  //   const session = await getSession();
-  //   role = session.role ?? "user";
-  //   m.redraw();
-  // },
+  oninit: async () => {
+    const session = await getSession();
+    Inicio.role = session.role ?? "user";
+    m.redraw();
+  },
+
   oncreate: async () => {
     Inicio.session = await getSession();
     if (Inicio?.session?.name) {
-      // console.log(Inicio.session.role),
       Inicio.name = Inicio.session.name.split(" ")[0];
     }
     m.redraw();
@@ -184,6 +175,7 @@ export const Inicio = {
                   {
                     style: {
                       fontSize: fontSizeh2,
+                      fontWeigth: "bolder",
                       color: modoOscuroOff ? "black" : "white",
                     },
                   },
@@ -192,24 +184,25 @@ export const Inicio = {
               )
             )
           ),
+          m(Button, { onclick: signOut }, "Cerrar Sesión"),
           m(
             Button,
             {
               onclick: () => m.route.set("/AñadirUsuario"),
               style: {
                 fontSize: fontSizeh2,
-                color: "white",
+                color: modoOscuroOff ? "black" : "white",
                 border: "none",
                 padding: "0.8rem",
                 margin: "2vh auto",
                 borderRadius: "30px",
-                // visibility: role === "admin" ? "visible" : "hidden",
-                backgroundColor: "#6a131b",
+                backgroundColor: backgroundColorButton,
+                outline: modoOscuroOff ? "none" : `2px solid ${accentColor}`,
+                visibility: Inicio.role === "admin" ? "visible" : "hidden",
               },
             },
             "Agregar un usuario"
           ),
-          m(Button, { onclick: signOut }, "Cerrar Sesión"),
         ]
       ),
     ]),

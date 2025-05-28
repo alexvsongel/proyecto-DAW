@@ -14,21 +14,21 @@ async function getDocumentosUsuario() {
   return [
     {
       id: 1,
-      nombre: "Documentosdfsfsdfsdfsdfsdfsdfsdfsd1.pdf",
+      nombre: "Consentimiento firmado.pdf",
       fechaSubida: "2024-03-15",
-      usuario: user.id,
+      usuario: "Alberto Baeza ",
     },
     {
       id: 2,
-      nombre: "Presentación.pptx",
+      nombre: "dni.png",
       fechaSubida: "2024-03-14T15:45:00Z",
-      usuario: user.id,
+      usuario: "Maria Arnal",
     },
     {
       id: 3,
       nombre: "Informe.docx",
       fechaSubida: "2024-03-13T09:15:00Z",
-      usuario: user.id,
+      usuario: "Alba Cabo",
     },
   ];
 }
@@ -60,7 +60,14 @@ export function Documentos() {
     m.redraw();
   };
 
+  let role = "user";
+
   return {
+    oninit: async () => {
+      const session = await getSession();
+      role = session.role ?? "user";
+      m.redraw();
+    },
     oncreate: async () => {
       documentos = await getDocumentosUsuario();
       m.redraw();
@@ -77,8 +84,9 @@ export function Documentos() {
               margin: "20px 0",
             },
           },
-          "Mis Documentos"
+          "Documentos"
         ),
+        // Vista del usuario
         m(
           "div",
           {
@@ -86,8 +94,7 @@ export function Documentos() {
               width: "90%",
               maxWidth: "800px",
               margin: "2vh  auto",
-              // padding: "20px",
-              display: "flex",
+              display: role === "admin" ? "none" : "flex",
               flexDirection: "column",
               gap: "20px",
             },
@@ -155,6 +162,7 @@ export function Documentos() {
                         }),
                         m(
                           "div",
+
                           {
                             style: {
                               backgroundColor: backgroundColorButton,
@@ -212,7 +220,6 @@ export function Documentos() {
               m(
                 "div",
                 {
-                  class: "1111",
                   style: {
                     backgroundColor: backgroundColorButton,
                     padding: "20px",
@@ -229,7 +236,6 @@ export function Documentos() {
                   m(
                     "div",
                     {
-                      class: "2222",
                       style: {
                         display: "flex",
                         flexDirection:
@@ -253,6 +259,142 @@ export function Documentos() {
                           },
                         },
                         doc.nombre
+                      ),
+                      m(
+                        "span",
+                        {
+                          style: {
+                            fontSize: fontSizeh3,
+                            color: modoOscuroOff ? "black" : "white",
+                            whiteSpace:
+                              window.innerWidth <= 600 ? "normal" : "nowrap",
+                          },
+                        },
+                        new Date(doc.fechaSubida).toLocaleDateString("es-ES", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
+                      ),
+                    ]
+                  ),
+                  m(
+                    "button",
+                    {
+                      onclick: () => handleDelete(doc.id),
+                      style: {
+                        backgroundColor: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                        padding: "5px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderRadius: "50%",
+                        alignSelf:
+                          window.innerWidth <= 600 ? "flex-end" : "center",
+                      },
+                      onfocus: (e) => {
+                        e.target.style.backgroundColor = backgroundColorButton;
+                        e.target.style.outline = `2px solid ${accentColor}`;
+                      },
+                      onblur: (e) => {
+                        e.target.style.backgroundColor = "transparent";
+                        e.target.style.outline = "none";
+                      },
+                      onmouseenter: (e) => {
+                        e.target.style.backgroundColor = backgroundColorButton;
+                      },
+                      onmouseleave: (e) => {
+                        e.target.style.backgroundColor = "transparent";
+                      },
+                    },
+                    m("img", {
+                      src: modoOscuroOff
+                        ? "imagenes/borrar.svg"
+                        : "imagenes/borrarBlanco.svg",
+                      alt: "Borrar documento",
+                      style: {
+                        width: "24px",
+                        height: "24px",
+                      },
+                    })
+                  ),
+                ]
+              )
+            ),
+          ]
+        ),
+        // Vista del administrador
+        m(
+          "div",
+          {
+            style: {
+              width: "90%",
+              maxWidth: "800px",
+              margin: "2vh  auto",
+              display: role === "admin" ? "flex" : "none",
+              flexDirection: "column",
+              gap: "20px",
+            },
+          },
+          [
+            // Lista de documentos
+            documentos.map((doc) =>
+              m(
+                "div",
+                {
+                  style: {
+                    backgroundColor: backgroundColorButton,
+                    padding: "20px",
+                    borderRadius: "30px",
+                    border: `2px solid ${
+                      modoOscuroOff ? "transparent" : accentColor
+                    }`,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
+                  },
+                },
+                [
+                  m(
+                    "div",
+                    {
+                      style: {
+                        display: "flex",
+                        flexDirection: "column",
+                        // window.innerWidth <= 600 ? "column" : "row",
+                        alignItems:
+                          window.innerWidth <= 600 ? "flex-start" : "center",
+                        gap: window.innerWidth <= 600 ? "10px" : "20px",
+                        flex: 1,
+                        width: "100%",
+                      },
+                    },
+                    [
+                      m(
+                        "span",
+                        {
+                          style: {
+                            fontSize: fontSizeh3,
+                            color: modoOscuroOff ? "black" : "white",
+                            wordBreak: "break-word",
+                            maxWidth: window.innerWidth <= 600 ? "100%" : "50%",
+                          },
+                        },
+                        doc.nombre
+                      ),
+                      m(
+                        "span",
+                        {
+                          style: {
+                            fontSize: fontSizeh3,
+                            color: modoOscuroOff ? "black" : "white",
+                            wordBreak: "break-word",
+                            maxWidth: window.innerWidth <= 600 ? "100%" : "50%",
+                          },
+                        },
+                        doc.usuario
                       ),
                       m(
                         "span",

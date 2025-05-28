@@ -2,6 +2,8 @@ import {
   modoOscuroOff,
   fontSizeh1,
   fontSizeh2,
+  backgroundColorButton,
+  accentColor,
 } from "../lib/constants";
 import { Layout } from "../components/layout";
 import { Button } from "../components/button";
@@ -49,6 +51,16 @@ export function Calendario() {
           headerToolbar: { left: "", center: "title", right: "" },
           footerToolbar: { left: "today", center: "", right: "prev,next" },
           events: await getActividades(),
+        dateClick: function (info) {
+            const title = prompt("Introduce el título del evento:");
+            if (title) {
+              calendar.addEvent({
+                title: title,
+                start: info.dateStr,
+                allDay: true,
+              });
+            }
+          },
         });
         calendar.render();
       }
@@ -94,13 +106,14 @@ export function Calendario() {
               onclick: () => m.route.set("/AñadirActividad"),
               style: {
                 fontSize: fontSizeh2,
-                color: "white",
+                color: modoOscuroOff ? "black" : "white",
                 border: "none",
                 padding: "0.8rem",
                 margin: "2vh auto",
                 borderRadius: "30px",
                 visibility: role === "admin" ? "visible" : "hidden",
-                backgroundColor: "#6a131b",
+                backgroundColor: backgroundColorButton,
+                outline: modoOscuroOff ? "none" : `2px solid ${accentColor}`,
               },
             },
             "Añadir actividad"

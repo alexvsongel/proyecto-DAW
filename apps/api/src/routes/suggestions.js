@@ -1,4 +1,6 @@
 import {Hono} from 'hono';
+import {auth} from '../lib/auth';
+import {database, eq, schema} from '../lib/database';
 
 const suggestions = new Hono();
 
@@ -20,57 +22,18 @@ suggestions.get('/', async c => {
   const result = query.map(event => {
     return {
       id: event.id,
+      user_id: event.user_id,
       title: event.title,
-      start: event.start_date,
-      ubicacion: event.location,
-      descripcion: event.description
+      start_date: event.start_date,
+      hour: event.hour,
+      location: event.location,
+      description: event.description,
+      created_at: event.created_at,
+      updated_at: event.updated_at
     };
   });
 
   return c.json(result);
-
-  /*
-  return c.json([
-    {
-      title: "Día de cine",
-      start: "2025-04-21",
-      end: "2025-04-25",
-      ubicacion: "",
-      descripcion: "",
-    },
-
-  return c.json(resultado);
-
-  /*
-  return c.json([
-    {
-      title: "Día de cine",
-      start: "2025-04-21",
-      end: "2025-04-25",
-      ubicacion: "",
-      descripcion: "",
-    },
-    {
-      title: "Taller de cocina",
-      start: "2025-04-19T14:30:00",
-      end: "2025-04-19T17:30:00",
-      ubicacion: "",
-      descripcion: "",
-    },
-    {
-      title: "Taller de cocina",
-      start: "2025-04-19",
-      ubicacion: "",
-      descripcion: "",
-    },
-    {
-      title: "Patinaje",
-      start: "2025-04-20",
-      ubicacion: "",
-      descripcion: "",
-    },
-  ]);
-  */
 });
 
 suggestions.post('/', async c => {
@@ -82,25 +45,40 @@ suggestions.post('/', async c => {
     return c.json({error: 'Inicia sesión para continuar.'}, 401);
   }
 
-  const nuevoEvento = await c.req.json();
+  const newSuggestion = await c.req.json();
 
-  // aqui valida que los campos del object esten bien
-  // IIMPORTANTE, SI NO VAS A MORIR !!!!
-
-  // Aquí guardas en una base de datos
-  database.insert(schema.suggestions).values({
-    title: nuevoEvento.titulo ?? '',
-    location: nuevoEvento.ubicacion ?? '',
-    start_date: nuevoEvento.fecha ?? Date.now().toString(),
-    hour: nuevoEvento.hora ?? '',
-    description: nuevoEvento.descripcion ?? ''
+  await database.insert(schema.suggestions).values({
+    user_id: newSuggestion.user_id,
+    title: newSuggestion.title,
+    start_date: newSuggestion.start_date,
+    hour: newSuggestion.hour,
+    location: newSuggestion.location,
+    description: newSuggestion.description,
+    created_at: newSuggestion.created_at,
+    updated_at: newSuggestion.updated_at
   });
 
   return c.json({
     success: true,
-    message: 'Evento añadido correctamente',
-    data: nuevoEvento
+    message: 'sugerencia añadida correctamente',
+    data: newSuggestion
   });
+});
+
+suggestions.delete('/:id', async c => {
+  const authorized = await auth.api.getSession({
+    headers: c.req.raw.headers
+  });
+
+  if (!authorized) {
+    return c.json({error: 'Inicia sesión para continuar.'}, 401);
+  }
+
+  const {id} =  c.req.param();
+
+  await database.delete(schema.suggestions).where(eq(schema.suggestions.id, id));
+
+  return c.json({ success: true, message: 'sugerencia eliminada correctamente', });
 });
 
 export {suggestions};

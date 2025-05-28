@@ -4,10 +4,8 @@ import {Header} from './header';
 
 export const Layout = {
   oncreate: () => {
-    // Modo oscuro
     document.body.style.backgroundColor = modoOscuroOff ? 'white' : blackColor;
 
-    // Arreglar scroll
     window.scrollTo(0, 0);
 
     // Checkear session

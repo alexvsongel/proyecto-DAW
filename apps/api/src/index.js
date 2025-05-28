@@ -13,10 +13,10 @@ const app = new Hono();
 
 // Better Auth
 app.use(
-  '/api/auth/*',
+  '*',
   cors({
     origin: ['http://localhost:5174', 'https://alex-vallejo.vercel.app'],
-    allowMethods: ['GET', 'POST', 'OPTIONS'],
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
     credentials: true
   })

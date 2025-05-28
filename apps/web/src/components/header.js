@@ -50,7 +50,7 @@ function botonModoOscuro() {
         },
         m("img", {
           src: modoOscuroOff
-            ? "imagenes/luna2.svg"
+            ? "imagenes/modoOscuro.svg"
             : "imagenes/modoOscuroBlanco.svg",
           style: {
             width: "80%",

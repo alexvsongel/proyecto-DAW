@@ -3,263 +3,267 @@ import {
   fontSizeh3,
   fontSizeh1,
   backgroundColorButton,
-  accentColor
-} from '../lib/constants';
-import {Layout} from '../components/layout';
-import {Button} from '../components/button';
+  accentColor,
+} from "../lib/constants";
+import { Layout } from "../components/layout";
+import { Button } from "../components/button";
 
 export const Buzon = {
   view: () =>
     m(Layout, [
       m(
-        'h1',
+        "h1",
         {
           style: {
-            fontSize: fontSizeh1  ,
-            color: modoOscuroOff ? 'black' : 'white',
-            textAlign: 'center',
-            margin: '20px 0'
-          }
+            fontSize: fontSizeh1,
+            color: modoOscuroOff ? "black" : "white",
+            textAlign: "center",
+            margin: "20px 0",
+          },
         },
-        'Buzón de sugerencias'
+        "Buzón de sugerencias"
       ),
       m(
-        'p',
+        "p",
         {
           style: {
             fontSize: fontSizeh3,
-            color: modoOscuroOff ? 'black' : 'white',
-            textAlign: 'left',
-            margin: '0 auto',
-            maxWidth: '800px',
-            width: '90%',
-            lineHeight: '1.6'
-          }
+            color: modoOscuroOff ? "black" : "white",
+            textAlign: "left",
+            margin: "0 auto",
+            maxWidth: "800px",
+            width: "90%",
+            lineHeight: "1.6",
+          },
         },
-        '¿Tienes una idea genial? ¡Compártela con nosotros!'
+        "¿Tienes una idea genial? ¡Compártela con nosotros!"
       ),
       m(
-        'p',
+        "p",
         {
           style: {
             fontSize: fontSizeh3,
-            color: modoOscuroOff ? 'black' : 'white',
-            textAlign: 'left',
-            margin: '0 auto',
-            maxWidth: '800px',
-            width: '90%',
-            lineHeight: '1.6'
-          }
+            color: modoOscuroOff ? "black" : "white",
+            textAlign: "left",
+            margin: "0 auto",
+            maxWidth: "800px",
+            width: "90%",
+            lineHeight: "1.6",
+          },
         },
-        'En esta sección puedes sugerir una actividad que te gustaría hacer rellenando el formulario o ver las sugerencias que tus compañer@s han compartido.'
+        "En esta sección puedes sugerir una actividad que te gustaría hacer rellenando el formulario o ver las sugerencias que tus compañer@s han compartido."
       ),
       m(
-        'div',
+        "div",
         {
           style: {
-            width: '90%',
-            maxWidth: '800px',
-            margin: '0 auto',
-            padding: '20px',
-            display: 'flex',
-            flexDirection: 'column'
-          }
+            width: "90%",
+            maxWidth: "800px",
+            margin: "0 auto",
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+          },
         },
         m(
           Button,
-          {onclick: () => m.route.set('/Sugerencias')},
-          'Ver sugerencias'
+          { onclick: () => m.route.set("/Sugerencias") },
+          "Ver Sugerencias"
         ),
         m(
-          'form',
+          "form",
           {
             style: {
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'left',
-              gap: '15px'
-            }
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "left",
+              gap: "15px",
+            },
           },
           [
             m(
-              'label',
+              "label",
               {
-                for: 'Titulo',
+                for: "Titulo",
                 style: {
-                  color: modoOscuroOff ? 'black' : 'white',
-                  fontSize: fontSizeh3
-                }
+                  color: modoOscuroOff ? "black" : "white",
+                  fontSize: fontSizeh3,
+                },
               },
-              'Título'
+              "Título"
             ),
-            m('input', {
-              type: 'text',
-              placeholder: 'Escribe un nombre para tu actividad: ',
+            m("input", {
+              type: "text",
+              placeholder: "Escribe un nombre para tu actividad: ",
               style: {
-                width: '100%',
-                padding: '0.8rem',
-                borderRadius: '30px',
-                border: '2px solid #ccc',
-                boxSizing: 'border-box'
+                width: "100%",
+                padding: "0.8rem",
+                borderRadius: "30px",
+                border: "2px solid #ccc",
+                boxSizing: "border-box",
               },
-              onfocus: e => {
+              onfocus: (e) => {
                 e.target.style.backgroundColor = backgroundColorButton;
-                e.target.style.outline = 'none';
-                e.target.style.color = modoOscuroOff ? 'black' : 'white';
+                e.target.style.outline = "none";
+                e.target.style.color = modoOscuroOff ? "black" : "white";
                 e.target.style.border = `2px solid ${accentColor}`;
               },
-              onblur: e => {
-                e.target.style.backgroundColor = '#FFFFFF';
-                e.target.style.outline = 'none';
-                e.target.style.color = 'black';
-                e.target.style.border = '2px solid #ccc';
-              }
+              onblur: (e) => {
+                e.target.style.backgroundColor = "#FFFFFF";
+                e.target.style.outline = "none";
+                e.target.style.color = "black";
+                e.target.style.border = "2px solid #ccc";
+              },
             }),
             m(
-              'label',
+              "label",
               {
-                for: 'ubicacion',
+                for: "ubicacion",
                 style: {
-                  color: modoOscuroOff ? 'black' : 'white',
-                  fontSize: fontSizeh3
-                }
+                  color: modoOscuroOff ? "black" : "white",
+                  fontSize: fontSizeh3,
+                },
               },
-              'Ubicación'
+              "Ubicación"
             ),
-            m('input', {
-              type: 'text',
-              placeholder: 'Escribe donde quieres hacer tu actividad: ',
+            m("input", {
+              type: "text",
+              placeholder: "Escribe donde quieres hacer tu actividad: ",
               style: {
-                width: '100%',
-                padding: '0.8rem',
-                borderRadius: '30px',
-                border: '2px solid #ccc',
-                boxSizing: 'border-box'
+                width: "100%",
+                padding: "0.8rem",
+                borderRadius: "30px",
+                border: "2px solid #ccc",
+                boxSizing: "border-box",
               },
-              onfocus: e => {
+              onfocus: (e) => {
                 e.target.style.backgroundColor = backgroundColorButton;
-                e.target.style.outline = 'none';
-                e.target.style.color = modoOscuroOff ? 'black' : 'white';
+                e.target.style.outline = "none";
+                e.target.style.color = modoOscuroOff ? "black" : "white";
                 e.target.style.border = `2px solid ${accentColor}`;
               },
-              onblur: e => {
-                e.target.style.backgroundColor = '#FFFFFF';
-                e.target.style.outline = 'none';
-                e.target.style.color = 'black';
-                e.target.style.border = '2px solid #ccc';
-              }
+              onblur: (e) => {
+                e.target.style.backgroundColor = "#FFFFFF";
+                e.target.style.outline = "none";
+                e.target.style.color = "black";
+                e.target.style.border = "2px solid #ccc";
+              },
             }),
             m(
-              'label',
+              "label",
               {
-                for: 'fecha',
+                for: "fecha",
                 style: {
-                  color: modoOscuroOff ? 'black' : 'white',
-                  fontSize: fontSizeh3
-                }
+                  color: modoOscuroOff ? "black" : "white",
+                  fontSize: fontSizeh3,
+                },
               },
-              'Fecha: '
+              "Fecha: "
             ),
-            m('input', {
-              id: 'ubicacion',
-              type: 'date',
-              placeholder: 'Escribe cuando quieres hacer tu actividad: ',
+            m("input", {
+              id: "ubicacion",
+              type: "date",
+              placeholder: "Escribe cuando quieres hacer tu actividad: ",
               style: {
-                width: '100%',
-                padding: '0.8rem',
-                borderRadius: '30px',
-                border: '2px solid #ccc',
-                boxSizing: 'border-box'
+                width: "100%",
+                padding: "0.8rem",
+                borderRadius: "30px",
+                border: "2px solid #ccc",
+                boxSizing: "border-box",
               },
-              onfocus: e => {
+              onfocus: (e) => {
                 e.target.style.backgroundColor = backgroundColorButton;
-                e.target.style.outline = 'none';
-                e.target.style.color = modoOscuroOff ? 'black' : 'white';
+                e.target.style.outline = "none";
+                e.target.style.color = modoOscuroOff ? "black" : "white";
                 e.target.style.border = `2px solid ${accentColor}`;
               },
-              onblur: e => {
-                e.target.style.backgroundColor = '#FFFFFF';
-                e.target.style.outline = 'none';
-                e.target.style.color = 'black';
-                e.target.style.border = '2px solid #ccc';
-              }
+              onblur: (e) => {
+                e.target.style.backgroundColor = "#FFFFFF";
+                e.target.style.outline = "none";
+                e.target.style.color = "black";
+                e.target.style.border = "2px solid #ccc";
+              },
             }),
             //--------------------Horario
             m(
-              'label',
+              "label",
               {
-                for: 'horario',
+                for: "horario",
                 style: {
-                  color: modoOscuroOff ? 'black' : 'white',
-                  fontSize: fontSizeh3
-                }
+                  color: modoOscuroOff ? "black" : "white",
+                  fontSize: fontSizeh3,
+                },
               },
-              'Horario: '
+              "Horario: "
             ),
-            m('input', {
-              id: 'horario',
-              type: 'text',
-              placeholder: 'Formato: 09:00-15:00',
+            m("input", {
+              id: "horario",
+              type: "text",
+              placeholder: "Formato: 09:00-15:00",
               style: {
-                width: '100%',
-                padding: '0.8rem',
-                borderRadius: '30px',
-                border: '2px solid #ccc',
-                boxSizing: 'border-box'
+                width: "100%",
+                padding: "0.8rem",
+                borderRadius: "30px",
+                border: "2px solid #ccc",
+                boxSizing: "border-box",
               },
-              onfocus: e => {
+              onfocus: (e) => {
                 e.target.style.backgroundColor = backgroundColorButton;
-                e.target.style.outline = 'none';
-                e.target.style.color = modoOscuroOff ? 'black' : 'white';
+                e.target.style.outline = "none";
+                e.target.style.color = modoOscuroOff ? "black" : "white";
                 e.target.style.border = `2px solid ${accentColor}`;
               },
-              onblur: e => {
-                e.target.style.backgroundColor = '#FFFFFF';
-                e.target.style.outline = 'none';
-                e.target.style.color = 'black';
-                e.target.style.border = '2px solid #ccc';
-              }
+              onblur: (e) => {
+                e.target.style.backgroundColor = "#FFFFFF";
+                e.target.style.outline = "none";
+                e.target.style.color = "black";
+                e.target.style.border = "2px solid #ccc";
+              },
             }),
             //--------------------Descripción
             m(
-              'label',
+              "label",
               {
-                for: 'descripcion',
+                for: "descripcion",
                 style: {
-                  color: modoOscuroOff ? 'black' : 'white',
-                  fontSize: fontSizeh3
-                }
+                  color: modoOscuroOff ? "black" : "white",
+                  fontSize: fontSizeh3,
+                },
               },
-              'Descripción'
+              "Descripción"
             ),
-            m('textarea', {
-              name: 'Describe tu actividad: ',
-              id: 'descripcion',
+            m("textarea", {
+              name: "Describe tu actividad: ",
+              id: "descripcion",
               style: {
-                width: '100%',
-                padding: '0.8rem',
-                borderRadius: '30px',
-                border: '2px solid #ccc',
-                boxSizing: 'border-box',
-                minHeight: '150px',
-                resize: 'vertical'
+                width: "100%",
+                padding: "0.8rem",
+                borderRadius: "30px",
+                border: "2px solid #ccc",
+                boxSizing: "border-box",
+                minHeight: "150px",
+                resize: "vertical",
               },
-              onfocus: e => {
+              onfocus: (e) => {
                 e.target.style.backgroundColor = backgroundColorButton;
-                e.target.style.outline = 'none';
-                e.target.style.color = modoOscuroOff ? 'black' : 'white';
+                e.target.style.outline = "none";
+                e.target.style.color = modoOscuroOff ? "black" : "white";
                 e.target.style.border = `2px solid ${accentColor}`;
               },
-              onblur: e => {
-                e.target.style.backgroundColor = '#FFFFFF';
-                e.target.style.outline = 'none';
-                e.target.style.color = 'black';
-                e.target.style.border = '2px solid #ccc';
-              }
+              onblur: (e) => {
+                e.target.style.backgroundColor = "#FFFFFF";
+                e.target.style.outline = "none";
+                e.target.style.color = "black";
+                e.target.style.border = "2px solid #ccc";
+              },
             }),
-            m(Button, {onclick: e => e.preventDefault()}, 'Enviar sugerencia')
+            m(
+              Button,
+              { onclick: (e) => e.preventDefault() },
+              "Enviar Sugerencia"
+            ),
           ]
         )
-      )
-    ])
+      ),
+    ]),
 };

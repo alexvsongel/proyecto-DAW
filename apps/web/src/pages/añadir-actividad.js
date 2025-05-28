@@ -29,7 +29,7 @@ export function AñadirActividad() {
         horario: formData.horario,
         descripcion: formData.descripcion,
       };
-      alert(actividad.descripcion);
+      console.log(actividad);
 
       await m.request({
         method: "POST",
@@ -37,14 +37,7 @@ export function AñadirActividad() {
         body: actividad,
       });
 
-      alert("Actividad añadida correctamente");
-      // formData = {
-      //   titulo: "",
-      //   ubicacion: "",
-      //   fecha: "",
-      //   horario: "",
-      //   descripcion: "",
-      // };
+  
     } catch (error) {
       console.error("Error al añadir la actividad: ", error.mesagge);
       alert("Hubo un error al añadir la actividad");

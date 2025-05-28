@@ -28,16 +28,14 @@ export function AñadirUsuario() {
         role: formData.role,
       },
       {
-        onRequest: (context) => {
-          // Mostrar un loader
+        onRequest: () => {
+          
         },
-        onSuccess: (context) => {
-          // Redirigir a la pagina de principal
+        onSuccess: () => {
           alert("Usuario añadido con éxito");
           m.route.set("/Inicio");
         },
         onError: (context) => {
-          // Mostrar error
           console.error(context.error);
         },
       }
@@ -110,7 +108,7 @@ export function AñadirUsuario() {
                 id: "name",
                 type: "text",
                 required: true,
-                placeholder: "Escribe un nombre para tu actividad: ",
+                placeholder: "Escribe un nombre para el usuario: ",
                 value: formData.name,
                 oninput: (e) => handleInputChange("name", e.target.value),
                 style: {
@@ -119,6 +117,7 @@ export function AñadirUsuario() {
                   borderRadius: "30px",
                   border: "2px solid #ccc",
                   boxSizing: "border-box",
+                  required: true,
                 },
                 onfocus: (e) => {
                   e.target.style.backgroundColor = backgroundColorButton;
@@ -159,6 +158,7 @@ export function AñadirUsuario() {
                   borderRadius: "30px",
                   border: "2px solid #ccc",
                   boxSizing: "border-box",
+                  required: true,
                 },
                 onfocus: (e) => {
                   e.target.style.backgroundColor = backgroundColorButton;
@@ -190,7 +190,7 @@ export function AñadirUsuario() {
                 id: "password",
                 type: "password",
                 required: true,
-                placeholder: "Introduce tu contraseña",
+                placeholder: "Introduce una contraseña: ",
                 value: formData.password,
                 oninput: (e) => handleInputChange("password", e.target.value),
                 style: {
@@ -199,6 +199,7 @@ export function AñadirUsuario() {
                   borderRadius: "30px",
                   border: "2px solid #ccc",
                   boxSizing: "border-box",
+                  required: true,
                 },
                 onfocus: (e) => {
                   e.target.style.backgroundColor = backgroundColorButton;
@@ -238,6 +239,7 @@ export function AñadirUsuario() {
                     borderRadius: "30px",
                     border: "2px solid #ccc",
                     boxSizing: "border-box",
+                    required: true,
                   },
                 },
                 [
