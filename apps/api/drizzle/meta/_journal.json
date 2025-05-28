@@ -15,6 +15,20 @@
       "when": 1747988131629,
       "tag": "0001_many_havok",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1748452466826,
+      "tag": "0002_nasty_scorpion",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1748452878801,
+      "tag": "0003_curved_vulture",
+      "breakpoints": true
     }
   ]
 }

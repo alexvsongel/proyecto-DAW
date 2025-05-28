@@ -11,7 +11,9 @@ import { getSession } from "../lib/auth";
 
 async function getActividades() {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/calendar`);
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/calendar`, {
+      credentials: "include",
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -51,7 +53,7 @@ export function Calendario() {
           headerToolbar: { left: "", center: "title", right: "" },
           footerToolbar: { left: "today", center: "", right: "prev,next" },
           events: await getActividades(),
-        dateClick: function (info) {
+          dateClick: function (info) {
             const title = prompt("Introduce el título del evento:");
             if (title) {
               calendar.addEvent({
