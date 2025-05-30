@@ -59,7 +59,6 @@ export function AñadirActividad() {
 
   let loading = false;
   let error = "";
-  let succes = "";
 
   const handleInputChange = (key, value) => {
     formData[key] = value;
@@ -101,7 +100,6 @@ export function AñadirActividad() {
         credentials: "include",
       }
     );
-    console.log(actividad);
 
     loading = false;
 
@@ -115,7 +113,7 @@ export function AñadirActividad() {
 
   return {
     oninit: async () => {
-      const session = await getSession();
+      session = await getSession();
       if (session.role !== "admin") {
         m.route.set("/Inicio");
         return;
@@ -156,10 +154,7 @@ export function AñadirActividad() {
                 textAlign: "left",
                 gap: "15px",
               },
-              onsubmit:[
-                enviarActividad,
-                console.log('se activa on submit')
-              ] 
+              onsubmit: enviarActividad, 
             },
             [
               //Titulo

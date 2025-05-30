@@ -182,7 +182,6 @@ calendar.post("/", async (c) => {
     description: newActivity.description,
   });
 
-  alert("Actividad añadida correctamente");
   return c.json({
     success: true,
     message: "Actividad añadida correctamente",
