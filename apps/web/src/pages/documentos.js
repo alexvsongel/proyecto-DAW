@@ -10,35 +10,40 @@ import { Button } from "../components/button";
 import { getSession } from "../lib/auth";
 
 async function getDocumentosUsuario() {
-  const user = await getSession();
-  return [
-    {
-      id: 1,
-      nombre: "Consentimiento firmado.pdf",
-      fechaSubida: "2024-03-15",
-      usuario: "Alberto Baeza ",
-    },
-    {
-      id: 2,
-      nombre: "dni.png",
-      fechaSubida: "2024-03-14T15:45:00Z",
-      usuario: "Maria Arnal",
-    },
-    {
-      id: 3,
-      nombre: "Informe.docx",
-      fechaSubida: "2024-03-13T09:15:00Z",
-      usuario: "Alba Cabo",
-    },
-  ];
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/documents`,
+      {
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const documents = await response.json();
+
+    return documents;
+  } catch (error) {
+    console.error("Error fetching documents:", error);
+    return [];
+  }
 }
 
 export function Documentos() {
-  let documentos = [];
   let archivoSeleccionado = null;
+
+  const formData = new FormData();
+
+  let loading = false;
+  let error = "";
+
+  let documentos = [];
 
   const handleFileSelect = (event) => {
     archivoSeleccionado = event.target.files[0];
+    formData.append("file", archivoSeleccionado);
   };
 
   const handleSubmit = async (e) => {
@@ -48,24 +53,49 @@ export function Documentos() {
       return;
     }
 
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/documents`,
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      loading = false;
+      error = response.text;
+      return;
+    }
     // Aquí iría la lógica para subir el archivo al servidor
     alert("Archivo subido correctamente");
     documentos = await getDocumentosUsuario();
     m.redraw();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     // Aquí iría la lógica para borrar el archivo del servidor
-    documentos = documentos.filter((doc) => doc.id !== id);
+    // documentos = documentos.filter((doc) => doc.id !== id);
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/documents/${id}`,
+      {
+        method: "delete",
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    documentos = await getDocumentosUsuario();
     m.redraw();
   };
 
-  let role = "user";
-
   return {
     oninit: async () => {
-      const session = await getSession();
-      role = session.role ?? "user";
+      await getSession();
       m.redraw();
     },
     oncreate: async () => {
@@ -94,7 +124,6 @@ export function Documentos() {
               width: "90%",
               maxWidth: "800px",
               margin: "2vh  auto",
-              display: role === "admin" ? "none" : "flex",
               flexDirection: "column",
               gap: "20px",
             },
@@ -168,9 +197,8 @@ export function Documentos() {
                               backgroundColor: backgroundColorButton,
                               padding: "0.8rem 2rem",
                               borderRadius: "30px",
-                              border: `2px solid ${
-                                modoOscuroOff ? "#ccc" : accentColor
-                              }`,
+                              border: `2px solid ${modoOscuroOff ? "#ccc" : accentColor
+                                }`,
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -224,9 +252,8 @@ export function Documentos() {
                     backgroundColor: backgroundColorButton,
                     padding: "20px",
                     borderRadius: "30px",
-                    border: `2px solid ${
-                      modoOscuroOff ? "transparent" : accentColor
-                    }`,
+                    border: `2px solid ${modoOscuroOff ? "transparent" : accentColor
+                      }`,
                     display: "flex",
                     justifyContent: "space-between",
                     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
@@ -281,7 +308,7 @@ export function Documentos() {
                   m(
                     "button",
                     {
-                      onclick: () => handleDelete(doc.id),
+                      onclick: async () => await handleDelete(doc.id),
                       style: {
                         backgroundColor: "transparent",
                         border: "none",
@@ -324,143 +351,7 @@ export function Documentos() {
               )
             ),
           ]
-        ),
-        // Vista del administrador
-        m(
-          "div",
-          {
-            style: {
-              width: "90%",
-              maxWidth: "800px",
-              margin: "2vh  auto",
-              display: role === "admin" ? "flex" : "none",
-              flexDirection: "column",
-              gap: "20px",
-            },
-          },
-          [
-            // Lista de documentos
-            documentos.map((doc) =>
-              m(
-                "div",
-                {
-                  style: {
-                    backgroundColor: backgroundColorButton,
-                    padding: "20px",
-                    borderRadius: "30px",
-                    border: `2px solid ${
-                      modoOscuroOff ? "transparent" : accentColor
-                    }`,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
-                  },
-                },
-                [
-                  m(
-                    "div",
-                    {
-                      style: {
-                        display: "flex",
-                        flexDirection: "column",
-                        // window.innerWidth <= 600 ? "column" : "row",
-                        alignItems:
-                          window.innerWidth <= 600 ? "flex-start" : "center",
-                        gap: window.innerWidth <= 600 ? "10px" : "20px",
-                        flex: 1,
-                        width: "100%",
-                      },
-                    },
-                    [
-                      m(
-                        "span",
-                        {
-                          style: {
-                            fontSize: fontSizeh3,
-                            color: modoOscuroOff ? "black" : "white",
-                            wordBreak: "break-word",
-                            maxWidth: window.innerWidth <= 600 ? "100%" : "50%",
-                          },
-                        },
-                        doc.nombre
-                      ),
-                      m(
-                        "span",
-                        {
-                          style: {
-                            fontSize: fontSizeh3,
-                            color: modoOscuroOff ? "black" : "white",
-                            wordBreak: "break-word",
-                            maxWidth: window.innerWidth <= 600 ? "100%" : "50%",
-                          },
-                        },
-                        doc.usuario
-                      ),
-                      m(
-                        "span",
-                        {
-                          style: {
-                            fontSize: fontSizeh3,
-                            color: modoOscuroOff ? "black" : "white",
-                            whiteSpace:
-                              window.innerWidth <= 600 ? "normal" : "nowrap",
-                          },
-                        },
-                        new Date(doc.fechaSubida).toLocaleDateString("es-ES", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })
-                      ),
-                    ]
-                  ),
-                  m(
-                    "button",
-                    {
-                      onclick: () => handleDelete(doc.id),
-                      style: {
-                        backgroundColor: "transparent",
-                        border: "none",
-                        cursor: "pointer",
-                        padding: "5px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        borderRadius: "50%",
-                        alignSelf:
-                          window.innerWidth <= 600 ? "flex-end" : "center",
-                      },
-                      onfocus: (e) => {
-                        e.target.style.backgroundColor = backgroundColorButton;
-                        e.target.style.outline = `2px solid ${accentColor}`;
-                      },
-                      onblur: (e) => {
-                        e.target.style.backgroundColor = "transparent";
-                        e.target.style.outline = "none";
-                      },
-                      onmouseenter: (e) => {
-                        e.target.style.backgroundColor = backgroundColorButton;
-                      },
-                      onmouseleave: (e) => {
-                        e.target.style.backgroundColor = "transparent";
-                      },
-                    },
-                    m("img", {
-                      src: modoOscuroOff
-                        ? "imagenes/borrar.svg"
-                        : "imagenes/borrarBlanco.svg",
-                      alt: "Borrar documento",
-                      style: {
-                        width: "24px",
-                        height: "24px",
-                      },
-                    })
-                  ),
-                ]
-              )
-            ),
-          ]
-        ),
+        )
       ]),
   };
 }
