@@ -42,37 +42,6 @@ suggestions.get("/", async (c) => {
 
   return c.json(suggestions);
 });
-// suggestions.get("/", async (c) => {
-//   const authorized = await auth.api.getSession({
-//     headers: c.req.raw.headers,
-//   });
-
-//   if (!authorized) {
-//     return c.json({ error: "Inicia sesión para continuar." }, 401);
-//   }
-
-//   const query = await database.query.suggestions.findMany({});
-
-//   if (query.length === 0) {
-//     return c.json([]);
-//   }
-
-//   const result = query.map((event) => {
-//     return {
-//       id: event.id,
-//       userId: event.user_id,
-//       title: event.title,
-//       start_date: event.start_date,
-//       hour: event.hour,
-//       location: event.location,
-//       description: event.description,
-//       created_at: event.created_at,
-//       updated_at: event.updated_at,
-//     };
-//   });
-
-//   return c.json(result);
-// });
 
 suggestions.post("/", async (c) => {
   const authorized = await auth.api.getSession({

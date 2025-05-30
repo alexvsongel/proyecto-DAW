@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite --port 5174",
+    "start": "vite --port 5174",
     "build": "vite build"
   },
   "devDependencies": {

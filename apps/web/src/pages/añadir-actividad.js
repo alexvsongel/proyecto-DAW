@@ -9,7 +9,46 @@ import { getSession } from "../lib/auth";
 import { Layout } from "../components/layout";
 import { Button } from "../components/button";
 
+// export function AñadirActividad() {
+//   let formData = {
+//      title: "",
+//      location: "",
+//      start_date: "",
+//      hour: "",
+//      description: "",
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       const actividad = {
+//         title: formData.titulo,
+//         location: formData.ubicacion,
+//         start_date: formData.fecha,
+//         hour: formData.horario,
+//         description: formData.descripcion,
+//       };
+//       console.log(actividad);
+
+//       await m.request({
+//         method: "POST",
+//         url: `${import.meta.env.VITE_API_URL}/api/calendar`,
+//         body: actividad,
+//       });
+//     } catch (error) {
+//       console.error("Error al añadir la actividad: ", error.mesagge);
+//       alert("Hubo un error al añadir la actividad");
+//     }
+//   };
+
+//   // Función para actualizar formData cuando cambian los inputs
+//   const handleInputChange = (key, value) => {
+//     formData[key] = value;
+//   };
 export function AñadirActividad() {
+  let session = null;
+
   let formData = {
     titulo: "",
     ubicacion: "",
@@ -18,36 +57,62 @@ export function AñadirActividad() {
     descripcion: "",
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  let loading = false;
+  let error = "";
+  let succes = "";
 
-    try {
-      const actividad = {
-        titulo: formData.titulo,
-        ubicacion: formData.ubicacion,
-        fecha: formData.fecha,
-        horario: formData.horario,
-        descripcion: formData.descripcion,
-      };
-      console.log(actividad);
-
-      await m.request({
-        method: "POST",
-        url: `${import.meta.env.VITE_API_URL}/api/calendar`,
-        body: actividad,
-      });
-
-  
-    } catch (error) {
-      console.error("Error al añadir la actividad: ", error.mesagge);
-      alert("Hubo un error al añadir la actividad");
-    }
-  };
-
-  // Función para actualizar formData cuando cambian los inputs
   const handleInputChange = (key, value) => {
     formData[key] = value;
   };
+
+  const enviarActividad = async (e) => {
+    loading = true;
+    e.preventDefault();
+
+    if (session === null) {
+      loading = false;
+      error = "Inicia sesion para continuar.";
+      return;
+    }
+
+    if (
+      formData.titulo === "" ||
+      formData.descripcion === "" ||
+      formData.horario === "" ||
+      formData.fecha === "" ||
+      formData.ubicacion === ""
+    ) {
+      loading = false;
+      error = "Por favor completa el formulario.";
+      return;
+    }
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/calendar`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          title: formData.titulo,
+          start_date: formData.fecha,
+          hour: formData.horario,
+          location: formData.ubicacion,
+          description: formData.descripcion,
+        }),
+        credentials: "include",
+      }
+    );
+    console.log(actividad);
+
+    loading = false;
+
+    if (!response.ok) {
+      error = response.text;
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    alert("Sugerencia añadida correctamente!");
+  };
+
   return {
     oninit: async () => {
       const session = await getSession();
@@ -91,7 +156,10 @@ export function AñadirActividad() {
                 textAlign: "left",
                 gap: "15px",
               },
-              onsubmit: handleSubmit,
+              onsubmit:[
+                enviarActividad,
+                console.log('se activa on submit')
+              ] 
             },
             [
               //Titulo
@@ -289,7 +357,7 @@ export function AñadirActividad() {
                   e.target.style.border = "2px solid #ccc";
                 },
               }),
-              m(Button, "Añadir actividad"),
+              m(Button, console.log("Apretar el boton"),  "Añadir actividad"),
             ]
           )
         ),

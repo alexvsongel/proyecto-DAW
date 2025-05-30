@@ -26,30 +26,6 @@ export function Sugerencias() {
   let sugerencias = [];
   let role = 'user';
 
-  const filtros = {
-    nombre: '',
-    fecha: '',
-    titulo: ''
-  };
-
-  const filtrarSugerencias = () => {
-    return sugerencias.filter(sugerencia => {
-      const coincideNombre = sugerencia.username
-        .toString()
-        .includes(filtros.nombre);
-      const coincideTitulo = sugerencia.title
-        .toLowerCase()
-        .includes(filtros.titulo.toLowerCase());
-      const coincideFecha =
-        filtros.fecha === '' ||
-        new Date(sugerencia.created_at)
-          .toLocaleDateString('es-ES')
-          .includes(filtros.fecha);
-
-      return coincideNombre && coincideTitulo && coincideFecha;
-    });
-  };
-
   return {
     oninit: async () => {
       const session = await getSession();
@@ -90,106 +66,7 @@ export function Sugerencias() {
             }
           },
           [
-            m(
-              'div',
-              {
-                style: {
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '15px',
-                  marginBottom: '20px'
-                }
-              },
-              [
-                m('input', {
-                  type: 'text',
-                  placeholder: 'Buscar por nombre usuario',
-                  value: filtros.nombre,
-                  oninput: e => {
-                    filtros.nombre = e.target.value;
-                    m.redraw();
-                  },
-                  style: {
-                    flex: '1',
-                    minWidth: '200px',
-                    padding: '10px',
-                    borderRadius: '30px',
-                    border: '2px solid #ccc',
-                    color: modoOscuroOff ? 'black' : 'white'
-                  },
-                  onfocus: e => {
-                    e.target.style.backgroundColor = backgroundColorButton;
-                    e.target.style.outline = 'none';
-                    e.target.style.color = modoOscuroOff ? 'black' : 'white';
-                    e.target.style.border = `2px solid ${accentColor}`;
-                  },
-                  onblur: e => {
-                    e.target.style.backgroundColor = '#FFFFFF';
-                    e.target.style.outline = 'none';
-                    e.target.style.color = 'black';
-                    e.target.style.border = '2px solid #ccc';
-                  }
-                }),
-                m('input', {
-                  type: 'text',
-                  placeholder: 'Buscar por tÃ­tulo',
-                  value: filtros.titulo,
-                  oninput: e => {
-                    filtros.titulo = e.target.value;
-                    m.redraw();
-                  },
-                  style: {
-                    flex: '1',
-                    minWidth: '200px',
-                    padding: '10px',
-                    borderRadius: '30px',
-                    border: '2px solid #ccc',
-                    color: modoOscuroOff ? 'black' : 'white'
-                  },
-                  onfocus: e => {
-                    e.target.style.backgroundColor = backgroundColorButton;
-                    e.target.style.outline = 'none';
-                    e.target.style.color = modoOscuroOff ? 'black' : 'white';
-                    e.target.style.border = `2px solid ${accentColor}`;
-                  },
-                  onblur: e => {
-                    e.target.style.backgroundColor = '#FFFFFF';
-                    e.target.style.outline = 'none';
-                    e.target.style.color = 'black';
-                    e.target.style.border = '2px solid #ccc';
-                  }
-                }),
-                m('input', {
-                  type: 'date',
-                  value: filtros.fecha,
-                  oninput: e => {
-                    filtros.fecha = e.target.value;
-                    m.redraw();
-                  },
-                  style: {
-                    flex: '1',
-                    minWidth: '200px',
-                    padding: '10px',
-                    borderRadius: '30px',
-                    border: '2px solid #ccc',
-                    color: modoOscuroOff ? 'black' : 'white'
-                  },
-                  onfocus: e => {
-                    e.target.style.backgroundColor = backgroundColorButton;
-                    e.target.style.outline = 'none';
-                    e.target.style.color = modoOscuroOff ? 'black' : 'white';
-                    e.target.style.border = `2px solid ${accentColor}`;
-                  },
-                  onblur: e => {
-                    e.target.style.backgroundColor = '#FFFFFF';
-                    e.target.style.outline = 'none';
-                    e.target.style.color = 'black';
-                    e.target.style.border = '2px solid #ccc';
-                  }
-                })
-              ]
-            ),
-            filtrarSugerencias().map(sugerencia =>
+           sugerencias.map(sugerencia =>
               m(
                 'div',
                 {

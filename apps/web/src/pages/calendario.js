@@ -4,6 +4,7 @@ import {
   fontSizeh2,
   backgroundColorButton,
   accentColor,
+  fontSizeh3,
 } from "../lib/constants";
 import { Layout } from "../components/layout";
 import { Button } from "../components/button";
@@ -11,9 +12,12 @@ import { getSession } from "../lib/auth";
 
 async function getActividades() {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/calendar`, {
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/calendar`,
+      {
+        credentials: "include",
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -29,12 +33,14 @@ async function getActividades() {
 }
 
 export function Calendario() {
+  let actividades = [];
   let calendar;
   let role = "user";
   return {
     oninit: async () => {
       const session = await getSession();
       role = session.role ?? "user";
+      actividades = await getActividades();
       m.redraw();
     },
     oncreate: async () => {
@@ -53,15 +59,16 @@ export function Calendario() {
           headerToolbar: { left: "", center: "title", right: "" },
           footerToolbar: { left: "today", center: "", right: "prev,next" },
           events: await getActividades(),
-          dateClick: function (info) {
-            const title = prompt("Introduce el título del evento:");
-            if (title) {
-              calendar.addEvent({
-                title: title,
-                start: info.dateStr,
-                allDay: true,
-              });
-            }
+          eventClick: (info) => {
+            const modal = document.getElementById("event-modal");
+            document.getElementById("event-title").innerText = info.event.title;
+            document.getElementById("event-description").innerText =
+              info.event.extendedProps.description || "Sin descripción";
+            document.getElementById("event-time").innerText =
+              `Horario: ${info.event.extendedProps.hour}`;
+            document.getElementById("event-location").innerText =
+              `Ubicación: ${info.event.extendedProps.location}`;
+            modal.style.display = "block";
           },
         });
         calendar.render();
@@ -90,6 +97,7 @@ export function Calendario() {
             "h1",
             {
               style: {
+                color: modoOscuroOff ? "black" : "white",
                 marginBottom: "1.5vh",
                 fontSize: fontSizeh1,
               },
@@ -119,6 +127,63 @@ export function Calendario() {
               },
             },
             "Añadir actividad"
+          ),
+          m(
+            "div#event-modal",
+            {
+              style: {
+                display: "none",
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                background: modoOscuroOff ? "white" : "black",
+                color: modoOscuroOff ? "black" : "white",
+                fontFamily: "monospace",
+                borderRadius: "30px",
+                padding: "20px",
+                zIndex: 9999,
+                outline: `2px solid ${accentColor}`,
+                boxShadow: "0 2px 10px rgba(0,0,0,0.5)",
+                maxWidth: "400px",
+                width: "90%",
+              },
+            },
+            [
+              m("h2#event-title", {
+                style: {
+                  fontSize: fontSizeh2,
+                  fontWeight: "bold",
+                },
+              }),
+              m("p#event-description", {
+                style: {
+                  fontSize: fontSizeh3,
+                  marginBottom: "1em",
+                },
+              }),
+              m("p#event-time", {
+                style: {
+                  fontSize: fontSizeh3,
+                  marginBottom: "1em",
+                },
+              }),
+              m("p#event-location", {
+                style: {
+                  fontSize: fontSizeh3,
+                  marginBottom: "1em",
+                },
+              }),
+              m(
+                Button,
+                {
+                  onclick: () =>
+                    (document.getElementById("event-modal").style.display =
+                      "none"),
+                },
+                "Cerrar"
+              ),
+            ]
           )
         ),
       ]),

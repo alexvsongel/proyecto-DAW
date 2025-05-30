@@ -22,6 +22,7 @@ export function Buzon() {
 
   let loading = false;
   let error = "";
+  let succes = ""
 
   const handleInputChange = (key, value) => {
     //Falta implementar la funcionalidad
@@ -142,7 +143,7 @@ export function Buzon() {
             "Ver sugerencias"
           ),
           m(
-            "form",
+            " ",
             {
               style: {
                 display: "flex",

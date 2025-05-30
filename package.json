@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "turbo dev",
+    "start": "turbo start",
     "format": "biome format --write .",
     "build": "turbo build --cache-dir=.turbo"
   },
