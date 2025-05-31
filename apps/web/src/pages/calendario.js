@@ -10,6 +10,7 @@ import { Layout } from "../components/layout";
 import { Button } from "../components/button";
 import { getSession } from "../lib/auth";
 
+
 async function getActividades() {
   try {
     const response = await fetch(
@@ -19,11 +20,14 @@ async function getActividades() {
       }
     );
 
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+
     const events = await response.json();
+
 
     return events;
   } catch (error) {
@@ -32,7 +36,8 @@ async function getActividades() {
   }
 }
 
-export function Calendario() {
+
+export function Calendario() {  
   let actividades = [];
   let calendar;
   let role = "user";
@@ -69,6 +74,7 @@ export function Calendario() {
             document.getElementById("event-location").innerText =
               `Ubicación: ${info.event.extendedProps.location}`;
             modal.style.display = "block";
+            document.getElementById("cerrar-modal")?.focus();
           },
         });
         calendar.render();
@@ -79,6 +85,7 @@ export function Calendario() {
         calendar.destroy();
       }
     },
+
 
     view: () =>
       m(Layout, [
@@ -177,6 +184,7 @@ export function Calendario() {
               m(
                 Button,
                 {
+                  id: "cerrar-modal",
                   onclick: () =>
                     (document.getElementById("event-modal").style.display =
                       "none"),
@@ -189,3 +197,6 @@ export function Calendario() {
       ]),
   };
 }
+
+
+

@@ -13,7 +13,7 @@ const app = new Hono().basePath("/api");
 app.use(
   "*",
   cors({
-    origin: ["http://localhost:5174", "https://alex-vallejo.vercel.app"],
+    origin: ["http://localhost:5174", "https://proyecto-daw-web.vercel.app"],
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization"],
     credentials: true,
