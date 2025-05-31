@@ -20,22 +20,7 @@ export function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    /*
-     * ESTO ES PARA CREAR LA CUENTA ADMIN
-    await authClient.signUp.email({name: "admin", email: formData.usuario, password: formData.contraseña}, {
-      onRequest: context => {
-        // Mostrar un loader
-      },
-      onSuccess: context => {
-        // Redirigir a la pagina de principal
-        m.route.set("/Inicio");
-      },
-      onError: context => {
-        // Mostrar error
-        //console.error(context.error);
-      }
-    })
-     */
+
     await authClient.signIn.email(
       { email: formData.usuario, password: formData.contraseña },
       {
@@ -55,9 +40,7 @@ export function Login() {
       }
     );
   };
-  //que funcionalidad necesita????????????????????????????
   const handleInputChange = (key, value) => {
-    //Falta implementar la funcionalidad
     formData[key] = value;
   };
 

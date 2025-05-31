@@ -1,16 +1,19 @@
-import {admin} from 'better-auth/plugins';
-import {betterAuth} from 'better-auth';
-import {Pool} from 'pg';
-import 'dotenv/config';
+import { admin } from "better-auth/plugins";
+import { betterAuth } from "better-auth";
+import { Pool } from "pg";
+import "dotenv/config";
 
 export const auth = betterAuth({
   database: new Pool({
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.DATABASE_URL,
   }),
-  trustedOrigins: ['http://localhost:5174', 'https://alex-vallejo.vercel.app'],
+  trustedOrigins: [
+    "http://localhost:5174",
+    "https://proyecto-daw-web.vercel.app",
+  ],
   emailAndPassword: {
-    enabled: true
+    enabled: true,
   },
   //Habilita un usuario admin
-  plugins: [admin()]
+  plugins: [admin()],
 });
